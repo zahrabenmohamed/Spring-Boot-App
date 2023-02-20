@@ -1,6 +1,8 @@
 package com.zahra.appLearning.controller;
 
 import com.zahra.appLearning.entity.Student;
+import com.zahra.appLearning.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,12 +14,13 @@ import java.util.UUID;
 @RequestMapping("student")
 public class StudentController {
 
-    @GetMapping
-    public List<Student> getStudent(){
-        return List.of(
-                new Student(UUID.randomUUID(),"zahra","benmohamed","benmedzahra20@gmail.com", Student.Gender.FEMALE),
-                new Student(UUID.randomUUID(),"zakaria","benmohamed","zakaria.bnemed@outlook.com", Student.Gender.MALE)
+    @Autowired
+    private StudentService studentService;
 
-        );
+    @GetMapping
+    public List<Student> getStudent() {
+
+
+        return studentService.getAllStudents() ;
     }
 }
