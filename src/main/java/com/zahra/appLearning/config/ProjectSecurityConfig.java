@@ -18,10 +18,14 @@ public class ProjectSecurityConfig extends WebSecurityConfigurerAdapter {
 
         httpSecurity.csrf().disable()
                 .authorizeHttpRequests().mvcMatchers("/home/**").permitAll()
-                .mvcMatchers("/courses").authenticated()
-                .mvcMatchers("/contact").authenticated() //let only authenticated user to contact the company
-                .mvcMatchers("/about").authenticated()
-                .and().formLogin().and().httpBasic();
+                .mvcMatchers("/dashboard").authenticated()
+                .mvcMatchers("/courses").permitAll()
+                .mvcMatchers("/contact").permitAll() //let only authenticated user to contact the company
+                .mvcMatchers("/about").permitAll()
+                .mvcMatchers("/login").permitAll()
+                .and().formLogin().loginPage("/login").defaultSuccessUrl("/dashboard").failureUrl("/login?error=true").permitAll()
+                .and().logout().logoutSuccessUrl("/login?logout=true").invalidateHttpSession(true).permitAll()
+                .and().httpBasic();
 
 
 
