@@ -33,17 +33,4 @@ public class ContactController {
         return "contact.html";
     }
 
-    @RequestMapping(value={"/saveMsg"},method = RequestMethod.POST)
-    public String saveMessage(@Valid @ModelAttribute("contact") Contact contact , Errors errors){
-
-        if(errors.hasErrors()){
-            log.info("The validation Form failed due to some error " +errors.toString());
-            return "contact.html";
-        }
-
-        contactService.saveMessageDetail(contact);
-        
-        return  "redirect:/contact";
-
-    }
 }
